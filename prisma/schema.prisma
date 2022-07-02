@@ -2,90 +2,99 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+	provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-model Compra {
-  id Int @id @default(autoincrement())
-  vencimiento Date 
-  cancelado Boolean
-  id_farmacia Int
-  id_pedido Int
-  farmacia Farmacia @relation({fields: [id_farmacia], references: [id]}) 
-  pedido Pedido @relation({fields: [id_pedido], references: [id]}) 
-}
-
-model Empleado {
-  id Int @id @default(autoincrement())
-  ci String
-  nombre String
-  apellido String
-  edad Int
-  telefono String
-  cargo Int
-  id_farmacia Int
-  cargo_id Cargo @relation({fields: [cargo], references: [id]})
-  farmacia Farmacia @relation({fields: [id_farmacia], references: [id]}) 
-}
-
-model Farmacia {
-  id Int @id @default(autoincrement())
-  nombre String
-  ubicacion String
-  empleados Empleado[]
-  inventarios Inventario[]
-  pedidos Pedido[]
-  compras Compra[]
-}
-
-model Inventario {
-  id Int @id @default(autoincrement())
-  id_farmacia Int
-  id_medicamento Int
-  cantidad Int
-  farmacia Farmacia @relation({fields: [id_farmacia], references: [id]}) 
-  medicamento Medicamento @relation({fields: [id_medicamento], references: [id]}) 
-
-}
-
-model Medicamento {
-  id Int @id @default(autoincrement())
-  nombre String
-  direccion String
-  telefono String
-  laboratorios Laboratorio[]
-  pedidos Pedido[]
-}
-
-model Pedido {
-  id Int @id @default(autoincrement())
-  id_farmacia Int
-  id_laboratorio Int
-  id_empleado Int
-  forma_pago Int
-  slug String
-  farmacia Farmacia @relation({fields: [id_farmacia], references: [id]}) 
-  laboratorio Laboratorio @relation({fields: [id_laboratorio], references: [id]}) 
-  empleado Empleado @relation({fields: [id_empleado], references: [id]}) 
-  forma_pago_id FormaPago @relation({fields: [forma_pago], references: [id]}) 
-
-  compras Compra[]
-  medicamentos Medicamento[]
+	provider = "postgresql"
+	url      = env("DATABASE_URL")
 }
 
 model Cargo {
-  id Int @id @default(autoincrement())
-  descripcion String
-  empleados Empleado[]
+	id Int @id @default(autoincrement())
+	descripcion String
+	empleados Empleado[]
 }
 
 model FormaPago {
-  id Int @id @default(autoincrement())
-  descripcion String
-  pedidos Pedido[]
+	id Int @id @default(autoincrement())
+	descripcion String
+	pedidos Pedido[]
+}
+
+model Farmacia {
+	id Int @id @default(autoincrement())
+	nombre String
+	ubicacion String
+	empleados Empleado[]
+	inventarios Inventario[]
+	pedidos Pedido[]
+	compras Compra[]
+}
+
+model Empleado {
+	id Int @id @default(autoincrement())
+	ci String
+	nombre String
+	apellido String
+	edad Int
+	telefono String
+	cargo Int
+	id_farmacia Int
+	cargo_id Cargo @relation(fields: [cargo], references: [id])
+	farmacia Farmacia @relation(fields: [id_farmacia], references: [id]) 
+	pedidos Pedido[]
+}
+
+model Medicamento {
+	id Int @id @default(autoincrement())
+	nombre String
+	direccion String
+	telefono String
+	laboratorios Laboratorio[]
+	pedidos Pedido[]
+	inventarios Inventario[]
+}
+
+model Pedido {
+	id Int @id @default(autoincrement())
+	id_farmacia Int
+	id_laboratorio Int
+	id_empleado Int
+	forma_pago Int
+	slug String
+	farmacia Farmacia @relation(fields: [id_farmacia], references: [id]) 
+	laboratorio Laboratorio @relation(fields: [id_laboratorio], references: [id]) 
+	empleado Empleado @relation(fields: [id_empleado], references: [id]) 
+	formas_pago FormaPago @relation(fields: [forma_pago], references: [id]) 
+	compras Compra[]
+	medicamentos Medicamento[]
+}
+
+model Compra {
+	id Int @id @default(autoincrement())
+	vencimiento DateTime 
+	cancelado Boolean
+	id_farmacia Int
+	id_pedido Int
+	farmacia Farmacia @relation(fields: [id_farmacia], references: [id]) 
+	pedido Pedido @relation(fields: [id_pedido], references: [id]) 
+}
+
+model Inventario {
+	id Int @id @default(autoincrement())
+	id_farmacia Int
+	id_medicamento Int
+	cantidad Int
+	farmacia Farmacia @relation(fields: [id_farmacia], references: [id]) 
+	medicamento Medicamento @relation(fields: [id_medicamento], references: [id]) 
+}
+
+model Laboratorio {
+	id Int @id @default(autoincrement())
+	nombre String
+	direccion String
+	telefono String
+	medicamentos Medicamento[]
+	pedidos Pedido[]
 }
