@@ -16,10 +16,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var indexRouter = require('./routes/index');
-app.use('/', indexRouter);
-var usersRouter = require('./routes/users');
-app.use('/users', usersRouter);
+// var indexRouter = require('./routes/index');
+// app.use('/', indexRouter);
+// var usersRouter = require('./routes/users');
+// app.use('/users', usersRouter);
+const farmaciaRouter = require('./routes/farmaciaRouter.js');
+app.use('/farmacia', farmaciaRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
