@@ -3,8 +3,16 @@ const db = new PrismaClient();
 
 module.exports = {
 
-	index: (req, res) => {
-		res.render('farmacia/index');	
-	}
+	index: async (req, res) => {
+		const farmacias = await db.Farmacia.findMany();
+		res.render('farmacia/index', {
+			farmacias: farmacias,
+			titulo: "Farmacias",
+		});	
+	},
+
+	create: async (req, res) => {
+		res.redirect('/farmacia');
+	},
 }
 

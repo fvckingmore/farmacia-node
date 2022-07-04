@@ -14,12 +14,14 @@ model Cargo {
 	id Int @id @default(autoincrement())
 	descripcion String
 	empleados Empleado[]
+	@@map("cargos")
 }
 
 model FormaPago {
 	id Int @id @default(autoincrement())
 	descripcion String
 	pedidos Pedido[]
+	@@map("formas_pago")
 }
 
 model Farmacia {
@@ -30,6 +32,7 @@ model Farmacia {
 	inventarios Inventario[]
 	pedidos Pedido[]
 	compras Compra[]
+	@@map("farmacias")
 }
 
 model Empleado {
@@ -44,6 +47,7 @@ model Empleado {
 	cargo_id Cargo @relation(fields: [cargo], references: [id])
 	farmacia Farmacia @relation(fields: [id_farmacia], references: [id]) 
 	pedidos Pedido[]
+	@@map("empleados")
 }
 
 model Medicamento {
@@ -54,6 +58,7 @@ model Medicamento {
 	laboratorios Laboratorio[]
 	pedidos Pedido[]
 	inventarios Inventario[]
+	@@map("medicamentos")
 }
 
 model Pedido {
@@ -69,6 +74,7 @@ model Pedido {
 	formas_pago FormaPago @relation(fields: [forma_pago], references: [id]) 
 	compras Compra[]
 	medicamentos Medicamento[]
+	@@map("pedidos")
 }
 
 model Compra {
@@ -79,6 +85,7 @@ model Compra {
 	id_pedido Int
 	farmacia Farmacia @relation(fields: [id_farmacia], references: [id]) 
 	pedido Pedido @relation(fields: [id_pedido], references: [id]) 
+	@@map("compras")
 }
 
 model Inventario {
@@ -88,6 +95,7 @@ model Inventario {
 	cantidad Int
 	farmacia Farmacia @relation(fields: [id_farmacia], references: [id]) 
 	medicamento Medicamento @relation(fields: [id_medicamento], references: [id]) 
+	@@map("inventario")
 }
 
 model Laboratorio {
@@ -97,4 +105,5 @@ model Laboratorio {
 	telefono String
 	medicamentos Medicamento[]
 	pedidos Pedido[]
+	@@map("laboratorios")
 }
