@@ -4,23 +4,32 @@
       <div class="modal-header">
         <h2 class="modal-title" id="exampleModalLongTitle"><%=titulo%></h2>
       </div>
+
+      <%if(locals.edit){%>
+      <form action="/farmacia/update/<%=locals.f.id%>" method="POST" role="form">
+      <%} else {%>
       <form action="/farmacia/create" method="POST" role="form">
+      <%}%>
         <div class="modal-body">
 
           <div class="form-group">
             <label>Nombre</label>
-            <input class="form-control">
+            <input class="form-control" name="nombre" <%if(locals.edit){%> value="<%=locals.f.nombre%>" <%}%> >
           </div>
 
           <div class="form-group">
             <label>Ubicacion</label>
-            <input class="form-control">
+            <input class="form-control" name="ubicacion" <%if(locals.edit){%> value="<%=locals.f.ubicacion%>" <%}%> >
           </div>
 
         </div>
 
         <div class="modal-footer">
+      <%if(locals.edit){%>
+          <a href="/farmacia" class="btn btn-danger"><b>X</b></a>
+      <%} else {%>
           <button type="button" class="btn btn-danger" data-dismiss="modal"><b>X</b></button>
+      <%}%>
           <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i></button>
         </div>
 
