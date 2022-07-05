@@ -20,9 +20,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/', indexRouter);
 // var usersRouter = require('./routes/users');
 // app.use('/users', usersRouter);
-const farmaciaRouter = require('./routes/farmaciaRouter.js');
-app.use('/farmacia', farmaciaRouter);
-
+app.use('/farmacia', require('./routes/farmaciaRouter.js'));
+app.use('/empleado', require('./routes/empleadoRouter.js'));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
