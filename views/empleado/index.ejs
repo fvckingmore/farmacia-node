@@ -87,7 +87,15 @@
 	});
 </script>
 
-
+<script type="text/javascript">
+	$("#empF").validate({
+		rules: {
+			cedula: {
+				required: true,
+			}
+		}
+	});
+</script>
 
 <%if(locals.edit){%>
 	<script type="text/javascript">

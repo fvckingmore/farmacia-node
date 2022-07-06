@@ -8,13 +8,13 @@
 			<%if(locals.edit){%>
 			<form id="empF" action="/empleado/update/<%=locals.e.id%>" method="POST" role="form">
 				<%} else {%>
-				<form action="/empleado/create" method="POST" role="form">
+				<form id="empF" action="/empleado/create" method="POST" role="form">
 					<%}%>
 					<div class="modal-body">
 
 						<div class="form-group">
 							<label>Cedula</label>
-							<input id="cedula" class="form-control" name="cedula" <%if(locals.edit){%> value="<%=locals.e.cedula%>" <%}%> >
+							<input id="cedula" class="form-control" name="cedula" <%if(locals.edit){%> value="<%=locals.e.cedula%>" <%}%>>
 						</div>
 
 						<div class="form-group">
