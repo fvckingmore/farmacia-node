@@ -39,21 +39,23 @@
 									<tr>
 										<th>ID</th>
 										<th>Nombre</th>
-										<th>Ubicacion</th>
+										<th>Apellido</th>
+										<th>Cargo</th>
 										<th>Accion</th>
 									</tr>
 								</thead>
 
 								<tbody class="text-center">
-									<% locals.farmacias.forEach((u) => { %>
+									<% locals.empleados.forEach((e) => { %>
 									<tr>
-										<td><%=u.id%></td>
-										<td><%=u.nombre%></td>
-										<td><%=u.ubicacion%></td>
+										<td><%=e.id%></td>
+										<td><%=e.nombre%></td>
+										<td><%=e.apellido%></td>
+										<td><%=e.cargo.descripcion%></td>
 										<td >
-											<a href="/farmacia/edit/<%=u.id%>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+											<a href="/empleado/edit/<%=e.id%>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
 											<button type="submit" form="theForm" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-											<form id="theForm" action="/farmacia/delete/<%=u.id%>" method="POST"></form>
+											<form id="theForm" action="/empleado/delete/<%=e.id%>" method="POST"></form>
 										</td>
 									</tr>
 									<%});%>
@@ -84,6 +86,8 @@
 		});
 	});
 </script>
+
+
 
 <%if(locals.edit){%>
 	<script type="text/javascript">

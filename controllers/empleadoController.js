@@ -3,10 +3,21 @@ const db = new PrismaClient();
 
 module.exports = {
 	index: async (req, res) => {
+		const empleados = await db.Empleado.findMany({
+			include: {
+				cargo: true,
+			}
+		});
 		const farmacias = await db.Farmacia.findMany();
-		res.render('farmacia/index', {
+		const cargos = await db.Cargo.findMany();
+
+		console.log(empleados);
+
+		res.render('empleado/index', {
+			empleados: empleados,
 			farmacias: farmacias,
-			titulo: "Farmacias",
+			cargos: cargos,
+			titulo: "Empleados",
 			creado: req.query.creado,
 			editado: req.query.editado,
 			eliminado: req.query.eliminado,
@@ -14,31 +25,31 @@ module.exports = {
 	},
 	create: async (req, res) => {
 
-		const f = await db.Farmacia.create({
+		const f = await db.Empleado.create({
 			data: {
 				nombre: req.body.nombre,
 				ubicacion: req.body.ubicacion,
 			}
 		});
-		if(!f) res.redirect('/farmacia?&creado=0');
-		res.redirect('/farmacia?&creado=1');
+		if(!f) res.redirect('/empleado?&creado=0');
+		res.redirect('/empleado?&creado=1');
 	},
 	edit: async (req, res) => {
-		const farmacias = await db.Farmacia.findMany();
-		const f = await db.Farmacia.findUnique({
+		const empleados = await db.Empleado.findMany();
+		const f = await db.Empleado.findUnique({
 			where: {
 				id: parseInt(req.params.id),
 			}
 		});
-		res.render('farmacia/index', {
-			farmacias: farmacias,
+		res.render('empleado/index', {
+			empleados: empleados,
 			f: f,
-			titulo: "Farmacias",
+			titulo: "Empleados",
 			edit: true
 		});	
 	},
 	update: async (req,res) => {
-		const f = await db.Farmacia.update({
+		const f = await db.Empleado.update({
 			where: {
 				id: parseInt(req.params.id),
 			},
@@ -47,17 +58,17 @@ module.exports = {
 				ubicacion: req.body.ubicacion,
 			}
 		});
-		if(!f) res.redirect('/farmacia?&editado=0');
-		res.redirect('/farmacia?&editado=1');
+		if(!f) res.redirect('/empleado?&editado=0');
+		res.redirect('/empleado?&editado=1');
 	},
 	delete: async (req,res) => {
-		const f = await db.Farmacia.delete({
+		const f = await db.Empleado.delete({
 			where: {
 				id: parseInt(req.params.id),
 			},
 		});
 		console.log(f);
-		if(!f) res.redirect('/farmacia?&eliminado=0');
-		res.redirect('/farmacia?&eliminado=1');
+		if(!f) res.redirect('/empleado?&eliminado=0');
+		res.redirect('/empleado?&eliminado=1');
 	},
 }

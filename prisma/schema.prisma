@@ -42,9 +42,9 @@ model Empleado {
 	apellido String
 	edad Int
 	telefono String
-	cargo Int
+	id_cargo Int
 	id_farmacia Int
-	cargo_id Cargo @relation(fields: [cargo], references: [id])
+	cargo Cargo @relation(fields: [id_cargo], references: [id])
 	farmacia Farmacia @relation(fields: [id_farmacia], references: [id]) 
 	pedidos Pedido[]
 	@@map("empleados")
