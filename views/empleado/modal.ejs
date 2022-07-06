@@ -8,7 +8,7 @@
 			<%if(locals.edit){%>
 			<form id="empF" action="/empleado/update/<%=locals.e.id%>" method="POST" role="form">
 				<%} else {%>
-				<form action="" method="POST" role="form">
+				<form action="/empleado/create" method="POST" role="form">
 					<%}%>
 					<div class="modal-body">
 

@@ -13,15 +13,19 @@ module.exports = {
 		});	
 	},
 	create: async (req, res) => {
+		try {
+			const f = await db.Farmacia.create({
+				data: {
+					nombre: req.body.nombre,
+					ubicacion: req.body.ubicacion,
+				}
+			});
 
-		const f = await db.Farmacia.create({
-			data: {
-				nombre: req.body.nombre,
-				ubicacion: req.body.ubicacion,
-			}
-		});
-		if(!f) res.redirect('/farmacia?&creado=0');
-		res.redirect('/farmacia?&creado=1');
+			console.log(f);
+		} catch (e) {
+			return res.redirect('/farmacia?&creado=0');
+		}
+		return res.redirect('/farmacia?&creado=1');
 	},
 	edit: async (req, res) => {
 		const farmacias = await db.Farmacia.findMany();

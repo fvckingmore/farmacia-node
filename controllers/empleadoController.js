@@ -24,15 +24,18 @@ module.exports = {
 		});	
 	},
 	create: async (req, res) => {
+		try {
+			await db.Empleado.create({
+				data: {
+					nombre: req.body.nombre,
+					ubicacion: req.body.ubicacion,
+				}
+			});
+		} catch (e) {
+			return res.redirect('/empleado?&creado=0');
+		}
 
-		const f = await db.Empleado.create({
-			data: {
-				nombre: req.body.nombre,
-				ubicacion: req.body.ubicacion,
-			}
-		});
-		if(!f) res.redirect('/empleado?&creado=0');
-		res.redirect('/empleado?&creado=1');
+		return res.redirect('/empleado?&creado=1');
 	},
 	edit: async (req, res) => {
 		const empleados = await db.Empleado.findMany();

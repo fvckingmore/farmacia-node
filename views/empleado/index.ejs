@@ -8,15 +8,15 @@
 				<h2 class="page-header"><%=titulo%></h2>
 
 				<%if(locals.creado == 1){%>
-					<%-include('../layouts/alert', {"status": "success", "mensaje": "Farmacia creada correctamente"});%>
+					<%-include('../layouts/alert', {"status": "success", "mensaje": "Empleado creado correctamente"});%>
 				<%}else if(locals.creado == 0){%>
-					<%-include('../layouts/alert', {"status": "danger", "mensaje": "Error al crear farmacia"});%>
+					<%-include('../layouts/alert', {"status": "danger", "mensaje": "Error al crear Empleado"});%>
 				<%}else if(locals.editado == 1){%>
-					<%-include('../layouts/alert', {"status": "success", "mensaje": "Farmacia editada correctamente"});%>
+					<%-include('../layouts/alert', {"status": "success", "mensaje": "Empleado editado correctamente"});%>
 				<%}else if(locals.editado == 0){%>
-					<%-include('../layouts/alert', {"status": "danger", "mensaje": "Error al editar farmacia"});%>
+					<%-include('../layouts/alert', {"status": "danger", "mensaje": "Error al editar Empleado"});%>
 				<%}else if(locals.eliminado == 1){%>
-					<%-include('../layouts/alert', {"status": "success", "mensaje": "Farmacia eliminada correctamente"});%>
+					<%-include('../layouts/alert', {"status": "success", "mensaje": "Empleado eliminado correctamente"});%>
 				<%}else if(locals.eliminado == 0){%>
 					<%-include('../layouts/alert', {"status": "danger", "mensaje": "Error al eliminar farmacia"});%>
 				<%}%>
