@@ -52,9 +52,10 @@ model Empleado {
 
 model Medicamento {
 	id Int @id @default(autoincrement())
-	nombre String
-	direccion String
-	telefono String
+	monodroga String
+	presentacion String
+	accion String
+	precio Float
 	laboratorios Laboratorio[]
 	pedidos Pedido[]
 	inventarios Inventario[]

@@ -14,34 +14,34 @@
 
 						<div class="form-group">
 							<label>Cedula</label>
-							<input id="cedula" class="form-control" name="cedula" <%if(locals.edit){%> value="<%=locals.e.ci%>" <%}%>>
+							<input id="cedula" class="form-control" name="cedula" <%if(locals.edit || locals.show){%> value="<%=locals.e.ci%>" <%}%> <%if(locals.show){%> readonly <%}%> >
 						</div>
 
 						<div class="form-group">
 							<label>Nombre</label>
-							<input id="nombre" class="form-control" name="nombre" <%if(locals.edit){%> value="<%=locals.e.nombre%>" <%}%> >
+							<input id="nombre" class="form-control" name="nombre" <%if(locals.edit || locals.show){%> value="<%=locals.e.nombre%>" <%}%> <%if(locals.show){%> readonly <%}%> >
 						</div>
 
 						<div class="form-group">
 							<label>Apellido</label>
-							<input id="apellido" class="form-control" name="apellido" <%if(locals.edit){%> value="<%=locals.e.apellido%>" <%}%> >
+							<input id="apellido" class="form-control" name="apellido" <%if(locals.edit || locals.show){%> value="<%=locals.e.apellido%>" <%}%> <%if(locals.show){%> readonly <%}%> >
 						</div>
 
 						<div class="form-group">
 							<label>Edad</label>
-							<input id="edad" class="form-control" name="edad" <%if(locals.edit){%> value="<%=locals.e.edad%>" <%}%> >
+							<input id="edad" class="form-control" name="edad" <%if(locals.edit || locals.show){%> value="<%=locals.e.edad%>" <%}%> <%if(locals.show){%> readonly <%}%> >
 						</div>
 
 						<div class="form-group">
 							<label>Telefono</label>
-							<input id="telefono" class="form-control" name="telefono" <%if(locals.edit){%> value="<%=locals.e.telefono%>" <%}%> >
+							<input id="telefono" class="form-control" name="telefono" <%if(locals.edit || locals.show){%> value="<%=locals.e.telefono%>" <%}%> <%if(locals.show){%> readonly <%}%> >
 						</div>
 
 						<div class="form-group">
 							<label>Farmacia</label>
 							<select name="id_farmacia" class="form-control">
 
-								<%if(locals.edit){%> 
+								<%if(locals.edit || locals.show){%> 
 								<option value="<%=locals.e.farmacia.id%>" ><%=locals.e.farmacia.nombre%></option>
 								<%} else {%>
 								<option value="">Elija un farmacia...</option>
@@ -57,7 +57,7 @@
 							<label>Cargo</label>
 							<select name="id_cargo" class="form-control">
 
-								<%if(locals.edit){%> 
+								<%if(locals.edit || locals.show){%> 
 								<option value="<%=locals.e.cargo.id%>" ><%=locals.e.cargo.descripcion%></option>
 								<%} else {%>
 								<option value="" >Elija un cargo...</option>
@@ -71,15 +71,22 @@
 
 					</div>
 
+
+					<%if(!locals.show){%>
 					<div class="modal-footer">
 						<%if(locals.edit){%>
-						<a href="/farmacia" class="btn btn-danger"><b>X</b></a>
+						<a href="/empleado" class="btn btn-danger"><b>X</b></a>
 						<%} else {%>
 						<button type="button" class="btn btn-danger" data-dismiss="modal"><b>X</b></button>
 						<%}%>
 						<button type="reset" class="btn btn-warning"><i class="fa fa-home"></i></button>
 						<button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i></button>
 					</div>
+					<%} else {%>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal"><b>X</b></button>
+					</div>
+					<%}%>
 
 				</form>
 			</div>

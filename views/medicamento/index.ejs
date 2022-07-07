@@ -8,15 +8,15 @@
 				<h2 class="page-header"><%=titulo%></h2>
 
 				<%if(locals.creado == 1){%>
-					<%-include('../layouts/alert', {"status": "success", "mensaje": "Empleado creado correctamente"});%>
+					<%-include('../layouts/alert', {"status": "success", "mensaje": "Medicamento creado correctamente"});%>
 				<%}else if(locals.creado == 0){%>
-					<%-include('../layouts/alert', {"status": "danger", "mensaje": "Error al crear Empleado"});%>
+					<%-include('../layouts/alert', {"status": "danger", "mensaje": "Error al crear Medicamento"});%>
 				<%}else if(locals.editado == 1){%>
-					<%-include('../layouts/alert', {"status": "success", "mensaje": "Empleado editado correctamente"});%>
+					<%-include('../layouts/alert', {"status": "success", "mensaje": "Medicamento editado correctamente"});%>
 				<%}else if(locals.editado == 0){%>
-					<%-include('../layouts/alert', {"status": "danger", "mensaje": "Error al editar Empleado"});%>
+					<%-include('../layouts/alert', {"status": "danger", "mensaje": "Error al editar Medicamento"});%>
 				<%}else if(locals.eliminado == 1){%>
-					<%-include('../layouts/alert', {"status": "success", "mensaje": "Empleado eliminado correctamente"});%>
+					<%-include('../layouts/alert', {"status": "success", "mensaje": "Medicamento eliminado correctamente"});%>
 				<%}else if(locals.eliminado == 0){%>
 					<%-include('../layouts/alert', {"status": "danger", "mensaje": "Error al eliminar farmacia"});%>
 				<%}%>
@@ -38,25 +38,26 @@
 								<thead class="text-center">
 									<tr>
 										<th>ID</th>
-										<th>Nombre</th>
-										<th>Apellido</th>
-										<th>Cargo</th>
+										<th>Monodroga</th>
+										<th>Presentacion</th>
+										<th>Accion</th>
+										<th>Precio</th>
 										<th>Accion</th>
 									</tr>
 								</thead>
 
 								<tbody class="text-center">
-									<% locals.empleados.forEach((e) => { %>
+									<% locals.medicamentos.forEach((m) => { %>
 									<tr>
-										<td><%=e.id%></td>
-										<td><%=e.nombre%></td>
-										<td><%=e.apellido%></td>
-										<td><%=e.cargo.descripcion%></td>
+										<td><%=m.id%></td>
+										<td><%=m.monodroga%></td>
+										<td><%=m.presentacion%></td>
+										<td><%=m.accion%></td>
+										<td><%=m.precio%></td>
 										<td >
-											<a href="/empleado/edit/<%=e.id%>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-											<a href="/empleado/show/<%=e.id%>" class="btn btn-success"><i class="fa fa-user"></i></a>
+											<a href="/medicamento/edit/<%=m.id%>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
 											<button type="submit" form="theForm" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-											<form id="theForm" action="/empleado/delete/<%=e.id%>" method="POST"></form>
+											<form id="theForm" action="/medicamento/delete/<%=m.id%>" method="POST"></form>
 										</td>
 									</tr>
 									<%});%>
@@ -79,9 +80,9 @@
 <%- include('./modal'); %>
 <%- include('../layouts/scripts'); %>
 <%- include('../layouts/datatable'); %>
-<%- include('../empleado/validation'); %>
+<%- include('../medicamento/validation'); %>
 
-<%if(locals.edit || locals.show){%>
+<%if(locals.edit){%>
 	<script type="text/javascript">
 		$("#exampleModalCenter").modal('show');
 	</script>

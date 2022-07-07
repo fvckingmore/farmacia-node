@@ -1,0 +1,50 @@
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-title" id="exampleModalLongTitle"><%=titulo%></h2>
+			</div>
+
+			<%if(locals.edit){%>
+			<form id="medicamentoForm" action="/medicamento/update/<%=locals.m.id%>" method="POST" role="form">
+				<%} else {%>
+				<form id="medicamentoForm" action="/medicamento/create" method="POST" role="form">
+					<%}%>
+					<div class="modal-body">
+
+						<div class="form-group">
+							<label>Monodroga</label>
+							<input id="monodroga" class="form-control" name="monodroga" <%if(locals.edit){%> value="<%=locals.m.monodroga%>" <%}%>>
+						</div>
+
+						<div class="form-group">
+							<label>Presentacion</label>
+							<input id="presentacion" class="form-control" name="presentacion" <%if(locals.edit){%> value="<%=locals.m.presentacion%>" <%}%> >
+						</div>
+
+						<div class="form-group">
+							<label>Accion</label>
+							<input id="accion" class="form-control" name="accion" <%if(locals.edit){%> value="<%=locals.m.presentacion%>" <%}%> >
+						</div>
+
+						<div class="form-group">
+							<label>Precio</label>
+							<input type="number" id="precio" class="form-control" name="precio" <%if(locals.edit){%> value="<%=locals.m.precio%>" <%}%> >
+						</div>
+
+					</div>
+
+					<div class="modal-footer">
+						<%if(locals.edit){%>
+						<a href="/medicamento" class="btn btn-danger"><b>X</b></a>
+						<%} else {%>
+						<button type="button" class="btn btn-danger" data-dismiss="modal"><b>X</b></button>
+						<%}%>
+						<button type="reset" class="btn btn-warning"><i class="fa fa-home"></i></button>
+						<button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
