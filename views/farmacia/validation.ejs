@@ -1,0 +1,20 @@
+<script type="text/javascript">
+	$("#farmaciaForm").validate({
+		rules: {
+			nombre: {
+				required: true,
+			},
+			ubicacion: {
+				required: true,
+			},
+		},
+		messages: {
+			nombre: {
+				required: "Debe ingresar un nombre",
+			},
+			ubicacion: {
+				required: "Debe ingresar una ubicacion",
+			},
+		}
+	});
+</script>

@@ -75,15 +75,9 @@
 
 <%- include('./modal'); %>
 <%- include('../layouts/scripts'); %>
+<%- include('../layouts/datatable'); %>
+<%- include('../farmacia/validation'); %>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#dataTables-example').DataTable({
-			responsive: true,
-			order: [[0, 'desc']]
-		});
-	});
-</script>
 
 <%if(locals.edit){%>
 	<script type="text/javascript">

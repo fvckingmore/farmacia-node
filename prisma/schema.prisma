@@ -41,7 +41,7 @@ model Empleado {
 	nombre String
 	apellido String
 	edad Int
-	telefono String
+	telefono String?
 	id_cargo Int
 	id_farmacia Int
 	cargo Cargo @relation(fields: [id_cargo], references: [id])

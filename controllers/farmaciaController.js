@@ -20,7 +20,6 @@ module.exports = {
 					ubicacion: req.body.ubicacion,
 				}
 			});
-
 			console.log(f);
 		} catch (e) {
 			return res.redirect('/farmacia?&creado=0');
@@ -42,26 +41,31 @@ module.exports = {
 		});	
 	},
 	update: async (req,res) => {
-		const f = await db.Farmacia.update({
-			where: {
-				id: parseInt(req.params.id),
-			},
-			data: {
-				nombre: req.body.nombre,
-				ubicacion: req.body.ubicacion,
-			}
-		});
-		if(!f) res.redirect('/farmacia?&editado=0');
-		res.redirect('/farmacia?&editado=1');
+		try{
+			await db.Farmacia.update({
+				where: {
+					id: parseInt(req.params.id),
+				},
+				data: {
+					nombre: req.body.nombre,
+					ubicacion: req.body.ubicacion,
+				}
+			});
+		} catch (e) {
+			return res.redirect('/farmacia?&editado=0');
+		}
+		return res.redirect('/farmacia?&editado=1');
 	},
 	delete: async (req,res) => {
-		const f = await db.Farmacia.delete({
-			where: {
-				id: parseInt(req.params.id),
-			},
-		});
-		console.log(f);
-		if(!f) res.redirect('/farmacia?&eliminado=0');
-		res.redirect('/farmacia?&eliminado=1');
+		try {
+			await db.Farmacia.delete({
+				where: {
+					id: parseInt(req.params.id),
+				},
+			});
+		} catch (e) {
+			return res.redirect('/farmacia?&eliminado=0');
+		}
+		return res.redirect('/farmacia?&eliminado=1');
 	},
 }

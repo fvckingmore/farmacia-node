@@ -6,15 +6,15 @@
 			</div>
 
 			<%if(locals.edit){%>
-			<form id="empF" action="/empleado/update/<%=locals.e.id%>" method="POST" role="form">
+			<form id="empleadoForm" action="/empleado/update/<%=locals.e.id%>" method="POST" role="form">
 				<%} else {%>
-				<form id="empF" action="/empleado/create" method="POST" role="form">
+				<form id="empleadoForm" action="/empleado/create" method="POST" role="form">
 					<%}%>
 					<div class="modal-body">
 
 						<div class="form-group">
 							<label>Cedula</label>
-							<input id="cedula" class="form-control" name="cedula" <%if(locals.edit){%> value="<%=locals.e.cedula%>" <%}%>>
+							<input id="cedula" class="form-control" name="cedula" <%if(locals.edit){%> value="<%=locals.e.ci%>" <%}%>>
 						</div>
 
 						<div class="form-group">
@@ -40,7 +40,13 @@
 						<div class="form-group">
 							<label>Farmacia</label>
 							<select name="id_farmacia" class="form-control">
-								<option default>Elija un farmacia...</option>
+
+								<%if(locals.edit){%> 
+								<option value="<%=locals.e.farmacia.id%>" ><%=locals.e.farmacia.nombre%></option>
+								<%} else {%>
+								<option value="">Elija un farmacia...</option>
+								<%}%>
+
 								<%farmacias.forEach(f => {%>
 								<option value="<%=f.id%>"><%=f.nombre%></option>
 								<%});%>
@@ -50,7 +56,13 @@
 						<div class="form-group">
 							<label>Cargo</label>
 							<select name="id_cargo" class="form-control">
-								<option default >Elija un cargo...</option>
+
+								<%if(locals.edit){%> 
+								<option value="<%=locals.e.cargo.id%>" ><%=locals.e.cargo.descripcion%></option>
+								<%} else {%>
+								<option value="" >Elija un cargo...</option>
+								<%}%>
+
 								<%cargos.forEach(c => {%>
 								<option value="<%=c.id%>"><%=c.descripcion%></option>
 								<%});%>
@@ -65,6 +77,7 @@
 						<%} else {%>
 						<button type="button" class="btn btn-danger" data-dismiss="modal"><b>X</b></button>
 						<%}%>
+						<button type="reset" class="btn btn-warning"><i class="fa fa-home"></i></button>
 						<button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i></button>
 					</div>
 
