@@ -6,7 +6,7 @@ const { faker } = require('@faker-js/faker');
 
 	await db.Medicamento.deleteMany({})
 
-	for(let i = 0; i < 200; i++) {
+	for(let i = 0; i < 30; i++) {
 		const med = await db.Medicamento.create({
 			data: {
 				monodroga: faker.commerce.productAdjective(),

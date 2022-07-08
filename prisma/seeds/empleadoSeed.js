@@ -6,7 +6,7 @@ const { faker } = require('@faker-js/faker');
 
 	await db.Empleado.deleteMany({})
 
-	for(let i = 0; i < 100; i++) {
+	for(let i = 0; i < 20; i++) {
 		const emp = await db.Empleado.create({
 			data: {
 				ci: faker.random.numeric(8),
@@ -15,7 +15,7 @@ const { faker } = require('@faker-js/faker');
 				edad: Math.floor(Math.random() * (Math.floor(60) - Math.floor(18)) + Math.floor(18)),
 				telefono: faker.phone.number(),
 				id_cargo: Math.floor(Math.random() * (Math.floor(10) - Math.floor(1)) + Math.floor(1)),
-				id_farmacia: Math.floor(Math.random() * (Math.floor(50) - Math.floor(1)) + Math.floor(1)),
+				id_farmacia: Math.floor(Math.random() * (Math.floor(10) - Math.floor(1)) + Math.floor(1)),
 			}
 		});
 
