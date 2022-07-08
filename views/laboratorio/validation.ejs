@@ -1,0 +1,26 @@
+<script type="text/javascript">
+	$("#laboratorioForm").validate({
+		rules: {
+			nombre: {
+				required: true,
+			},
+			direccion: {
+				required: true,
+			},
+			telefono: {
+				required: true,
+			},
+		},
+		messages: {
+			nombre: {
+				required: "Ingrese el nombre",
+			},
+			direccion: {
+				required: "Ingrese la direccion",
+			},
+			telefono: {
+				required: "Ingrese el telefono",
+			},
+		}
+	});
+</script>
