@@ -1,57 +1,33 @@
 <script type="text/javascript">
-	$("#empleadoForm").validate({
+	$("#medicamentoForm").validate({
 		rules: {
-			cedula: {
+			monodroga: {
+				required: true,
+			},
+			presentacion: {
+				required: true,
+			},
+			accion: {
+				required: true,
+			},
+			precio: {
 				required: true,
 				number: true,
-			},
-			nombre: {
-				required: true,
-			},
-			apellido: {
-				required: true,
-			},
-			edad: {
-				required: true,
-				number: true,
-				min: 18,
-				max: 60,
-			},
-			telefono: {
-				number: true,
-			},
-			id_farmacia: {
-				required: true,
-			},
-			id_cargo: {
-				required: true,
 			},
 		},
 		messages: {
-			cedula: {
-				required: "Ingrese la cedula",
-				number: "Debe ingresar numeros",
+			monodroga: {
+				required: "Ingrese la monodroga",
 			},
-			nombre: {
-				required: "Debe ingresar un nombre",
+			presentacion: {
+				required: "Ingrese la presentacion",
 			},
-			apellido: {
-				required: "Debe ingresar un apellido",
+			accion: {
+				required: "Ingrese la accion",
 			},
-			edad: {
-				required: "Debe ingresar una edad",
-				number: "Debe ser un numero",
-				min: "Debe ser mayor de 18 años",
-				max: "Debe ser menor de 60 años",
-			},
-			telefono: {
-				number: "Debe ser un numero",
-			},
-			id_farmacia: {
-				required: "Debe elegir una farmacia",
-			},
-			id_cargo: {
-				required: "Debe elegir un cargo",
+			precio: {
+				required: "Ingrese la precio",
+				number: "El precio debe ser un numero",
 			},
 		}
 	});
