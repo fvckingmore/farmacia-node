@@ -38,25 +38,25 @@
 								<thead class="text-center">
 									<tr>
 										<th>ID</th>
-										<th>Nombre</th>
-										<th>Apellido</th>
-										<th>Cargo</th>
+										<th>Farmacia</th>
+										<th>Laboratorio</th>
+										<th>Forma Pago</th>
 										<th>Accion</th>
 									</tr>
 								</thead>
 
 								<tbody class="text-center">
-									<% locals.empleados.forEach((e) => { %>
+									<% locals.pedidos.forEach((p) => { %>
 									<tr>
-										<td><%=e.id%></td>
-										<td><%=e.nombre%></td>
-										<td><%=e.apellido%></td>
-										<td><%=e.cargo.descripcion%></td>
+										<td><%=p.id%></td>
+										<td><%=p.farmacia.nombre%></td>
+										<td><%=p.laboratorio.nombre%></td>
+										<td><%=p.formas_pago.descripcion%></td>
 										<td >
-											<a href="/empleado/edit/<%=e.id%>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-											<a href="/empleado/show/<%=e.id%>" class="btn btn-success"><i class="fa fa-user"></i></a>
+											<a href="/empleado/edit/<%=p.id%>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+											<a href="/empleado/show/<%=p.id%>" class="btn btn-success"><i class="fa fa-user"></i></a>
 											<button type="submit" form="theForm" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-											<form id="theForm" action="/empleado/delete/<%=e.id%>" method="POST"></form>
+											<form id="theForm" action="/empleado/delete/<%=p.id%>" method="POST"></form>
 										</td>
 									</tr>
 									<%});%>

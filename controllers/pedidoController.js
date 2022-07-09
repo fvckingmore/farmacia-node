@@ -3,19 +3,24 @@ const db = new PrismaClient();
 
 module.exports = {
 	index: async (req, res) => {
-		const empleados = await db.Empleado.findMany({
+		const pedidos = await db.Pedido.findMany({
 			include: {
-				cargo: true,
+				farmacia: true,
+				laboratorio: true,
+				formas_pago: true,
 			}
 		});
-		const farmacias = await db.Farmacia.findMany();
-		const cargos = await db.Cargo.findMany();
 
-		res.render('empleado/index', {
-			empleados: empleados,
+		const farmacias = await db.Farmacia.findMany();
+		const laboratorios = await db.Laboratorio.findMany();
+		const formas_pago = await db.FormaPago.findMany();
+
+		res.render('pedido/index', {
+			pedidos: pedidos,
 			farmacias: farmacias,
-			cargos: cargos,
-			titulo: "Empleados",
+			laboratorios: laboratorios,
+			formas_pago: formas_pago,
+			titulo: "Pedidos",
 			creado: req.query.creado,
 			editado: req.query.editado,
 			eliminado: req.query.eliminado,
@@ -23,7 +28,7 @@ module.exports = {
 	},
 	create: async (req, res) => {
 		try {
-			await db.Empleado.create({
+			await db.Pedido.create({
 				data: {
 					ci: req.body.cedula,
 					nombre: req.body.nombre,
@@ -42,12 +47,12 @@ module.exports = {
 		return res.redirect('/empleado?&creado=1');
 	},
 	edit: async (req, res) => {
-		const empleados = await db.Empleado.findMany({
+		const pedidos = await db.Pedido.findMany({
 			include: {
 				cargo: true,
 			}
 		});
-		const e = await db.Empleado.findUnique({
+		const e = await db.Pedido.findUnique({
 			where: {
 				id: parseInt(req.params.id),
 			},
@@ -59,10 +64,10 @@ module.exports = {
 		const farmacias = await db.Farmacia.findMany();
 		const cargos = await db.Cargo.findMany();
 		return res.render('empleado/index', {
-			empleados: empleados,
+			pedidos: pedidos,
 			farmacias: farmacias,
 			cargos: cargos,
-			titulo: "Empleados",
+			titulo: "Pedidos",
 			creado: req.query.creado,
 			editado: req.query.editado,
 			eliminado: req.query.eliminado,
@@ -73,7 +78,7 @@ module.exports = {
 	update: async (req,res) => {
 
 		try {
-			await db.Empleado.update({
+			await db.Pedido.update({
 				where: {
 					id: parseInt(req.params.id),
 				},
@@ -95,7 +100,7 @@ module.exports = {
 	},
 	delete: async (req,res) => {
 		try {
-			await db.Empleado.delete({
+			await db.Pedido.delete({
 				where: {
 					id: parseInt(req.params.id),
 				},
@@ -107,12 +112,12 @@ module.exports = {
 		return res.redirect('/empleado?&eliminado=1');
 	},
 	show: async (req, res) => {
-		const empleados = await db.Empleado.findMany({
+		const pedidos = await db.Pedido.findMany({
 			include: {
 				cargo: true,
 			}
 		});
-		const e = await db.Empleado.findUnique({
+		const e = await db.Pedido.findUnique({
 			where: {
 				id: parseInt(req.params.id),
 			},
@@ -124,10 +129,10 @@ module.exports = {
 		const farmacias = await db.Farmacia.findMany();
 		const cargos = await db.Cargo.findMany();
 		return res.render('empleado/index', {
-			empleados: empleados,
+			pedidos: pedidos,
 			farmacias: farmacias,
 			cargos: cargos,
-			titulo: "Empleados",
+			titulo: "Pedidos",
 			creado: req.query.creado,
 			editado: req.query.editado,
 			eliminado: req.query.eliminado,

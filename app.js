@@ -16,15 +16,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// var indexRouter = require('./routes/index');
-// app.use('/', indexRouter);
-// var usersRouter = require('./routes/users');
-// app.use('/users', usersRouter);
+// Routes
 app.use('/farmacia', require('./routes/farmaciaRouter.js'));
 app.use('/empleado', require('./routes/empleadoRouter.js'));
 app.use('/medicamento', require('./routes/medicamentoRouter.js'));
 app.use('/laboratorio', require('./routes/laboratorioRouter.js'));
 app.use('/inventario', require('./routes/inventarioRouter.js'));
+app.use('/pedido', require('./routes/pedidoRouter.js'));
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

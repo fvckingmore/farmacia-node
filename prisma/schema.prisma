@@ -28,6 +28,7 @@ model Farmacia {
 	id Int @id @default(autoincrement())
 	nombre String
 	ubicacion String
+
 	empleados Empleado[]
 	inventarios Inventario[]
 	pedidos Pedido[]
@@ -44,9 +45,9 @@ model Empleado {
 	telefono String?
 	id_cargo Int
 	id_farmacia Int
+
 	cargo Cargo @relation(fields: [id_cargo], references: [id])
 	farmacia Farmacia @relation(fields: [id_farmacia], references: [id]) 
-	pedidos Pedido[]
 	@@map("empleados")
 }
 
@@ -56,8 +57,10 @@ model Medicamento {
 	presentacion String
 	accion String
 	precio Float
-	laboratorios Laboratorio[]
-	pedidos Pedido[]
+
+	compras CompraMedicamento[]
+	laboratorios LaboratorioMedicamento[]
+	pedidos PedidoMedicamento[]
 	inventarios Inventario[]
 	@@map("medicamentos")
 }
@@ -66,15 +69,14 @@ model Pedido {
 	id Int @id @default(autoincrement())
 	id_farmacia Int
 	id_laboratorio Int
-	id_empleado Int
 	forma_pago Int
 	slug String
+
 	farmacia Farmacia @relation(fields: [id_farmacia], references: [id]) 
 	laboratorio Laboratorio @relation(fields: [id_laboratorio], references: [id]) 
-	empleado Empleado @relation(fields: [id_empleado], references: [id]) 
 	formas_pago FormaPago @relation(fields: [forma_pago], references: [id]) 
-	compras Compra[]
-	medicamentos Medicamento[]
+	compras Compra?
+	medicamentos PedidoMedicamento[]
 	@@map("pedidos")
 }
 
@@ -83,7 +85,9 @@ model Compra {
 	vencimiento DateTime 
 	cancelado Boolean
 	id_farmacia Int
-	id_pedido Int
+	id_pedido Int @unique
+
+	medicamentos CompraMedicamento[]
 	farmacia Farmacia @relation(fields: [id_farmacia], references: [id]) 
 	pedido Pedido @relation(fields: [id_pedido], references: [id]) 
 	@@map("compras")
@@ -94,6 +98,7 @@ model Inventario {
 	id_farmacia Int
 	id_medicamento Int
 	cantidad Int
+
 	farmacia Farmacia @relation(fields: [id_farmacia], references: [id]) 
 	medicamento Medicamento @relation(fields: [id_medicamento], references: [id]) 
 	@@map("inventario")
@@ -104,7 +109,39 @@ model Laboratorio {
 	nombre String
 	direccion String
 	telefono String
-	medicamentos Medicamento[]
+
+	medicamentos LaboratorioMedicamento[]
 	pedidos Pedido[]
 	@@map("laboratorios")
+}
+
+model CompraMedicamento {
+	id Int @id @default(autoincrement())
+	id_compra Int
+	id_medicamento Int
+	cantidad Int
+
+	medicamento Medicamento @relation(fields: [id_medicamento], references: [id])
+	compra Compra @relation(fields: [id_compra], references: [id])
+	@@map("compra_medicamento")
+}
+
+model LaboratorioMedicamento {
+	id Int @id @default(autoincrement())
+	id_laboratorio Int
+	id_medicamento Int
+
+	medicamento Medicamento @relation(fields: [id_medicamento], references: [id])
+	laboratorio Laboratorio @relation(fields: [id_laboratorio], references: [id])
+	@@map("laboratorio_medicamento")
+}
+
+model PedidoMedicamento {
+	id Int @id @default(autoincrement())
+	id_pedido Int
+	id_medicamento Int
+
+	medicamento Medicamento @relation(fields: [id_medicamento], references: [id])
+	pedido Pedido @relation(fields: [id_pedido], references: [id])
+	@@map("pedido_medicamento")
 }
