@@ -1,5 +1,6 @@
 const {PrismaClient} = require('@prisma/client');
 const db = new PrismaClient();
+const { faker } = require('@faker-js/faker');
 
 module.exports = {
 	index: async (req, res) => {
@@ -14,12 +15,14 @@ module.exports = {
 		const farmacias = await db.Farmacia.findMany();
 		const laboratorios = await db.Laboratorio.findMany();
 		const formas_pago = await db.FormaPago.findMany();
+		const medicamentos = await db.Medicamento.findMany();
 
 		res.render('pedido/index', {
 			pedidos: pedidos,
 			farmacias: farmacias,
 			laboratorios: laboratorios,
 			formas_pago: formas_pago,
+			medicamentos: medicamentos,
 			titulo: "Pedidos",
 			creado: req.query.creado,
 			editado: req.query.editado,
@@ -27,24 +30,35 @@ module.exports = {
 		});	
 	},
 	create: async (req, res) => {
+		console.log(req.body);
+
 		try {
-			await db.Pedido.create({
+			const pedido = await db.Pedido.create({
 				data: {
-					ci: req.body.cedula,
-					nombre: req.body.nombre,
-					apellido: req.body.apellido,
-					edad: parseInt(req.body.edad),
-					telefono: req.body.telefono,
-					id_cargo: parseInt(req.body.id_cargo),
 					id_farmacia: parseInt(req.body.id_farmacia),
+					id_laboratorio: parseInt(req.body.id_laboratorio),
+					forma_pago: parseInt(req.body.forma_pago),
+					slug: faker.random.alphaNumeric(16)
 				}
 			});
+
+			console.log(pedido);
+
+			for(let i=0; i<req.body.medicamentos.length; i++){
+
+				await db.PedidoMedicamento.create({
+					data: {
+						id_pedido: parseInt(pedido.id),
+						id_medicamento: parseInt(req.body.medicamentos[i]),
+					}
+				});
+			}
 		} catch (e) {
 			console.log(e);
-			return res.redirect('/empleado?&creado=0');
+			return res.redirect('/pedido?&creado=0');
 		}
 
-		return res.redirect('/empleado?&creado=1');
+		return res.redirect('/pedido?&creado=1');
 	},
 	edit: async (req, res) => {
 		const pedidos = await db.Pedido.findMany({

@@ -7,79 +7,86 @@
 
 			<%if(locals.edit){%>
 			<form id="pedidoForm" action="/pedido/update/<%=locals.p.id%>" method="POST" role="form">
-				<%} else {%>
-				<form id="pedidoForm" action="/pedido/create" method="POST" role="form">
-					<%}%>
-					<div class="modal-body">
+			<%} else {%>
+			<form id="pedidoForm" action="/pedido/create" method="POST" role="form">
+				<%}%>
+				<div class="modal-body">
 
-						<div class="form-group">
-							<label>Farmacia</label>
-							<select name="id_farmacia" class="form-control">
+					<div class="form-group">
+						<label>Farmacia</label>
+						<select name="id_farmacia" class="form-control">
 
-								<%if(locals.edit || locals.show){%> 
-								<option value="<%=locals.p.farmacia.id%>" ><%=locals.p.farmacia.nombre%></option>
-								<%} else {%>
-								<option value="">Elija un farmacia...</option>
-								<%}%>
+							<%if(locals.edit || locals.show){%> 
+							<option value="<%=locals.p.farmacia.id%>" ><%=locals.p.farmacia.nombre%></option>
+							<%} else {%>
+							<option value="">Elija un farmacia...</option>
+							<%}%>
 
-								<%farmacias.forEach(f => {%>
-								<option value="<%=f.id%>"><%=f.nombre%></option>
-								<%});%>
-							</select>
-						</div>
-
-						<div class="form-group">
-							<label>Laboratorio</label>
-							<select name="id_laboratorio" class="form-control">
-
-								<%if(locals.edit || locals.show){%> 
-								<option value="<%=locals.p.laboratorio.id%>" ><%=locals.p.laboratorio.nombre%></option>
-								<%} else {%>
-								<option value="">Elija un laboratorio...</option>
-								<%}%>
-
-								<%laboratorios.forEach(l => {%>
-								<option value="<%=l.id%>"><%=l.nombre%></option>
-								<%});%>
-							</select>
-						</div>
-
-						<div class="form-group">
-							<label>Forma Pago</label>
-							<select name="forma_pago" class="form-control">
-
-								<%if(locals.edit || locals.show){%> 
-								<option value="<%=locals.p.formas_pago.id%>" ><%=locals.p.formas_pago.nombre%></option>
-								<%} else {%>
-								<option value="">Elija una forma de pago...</option>
-								<%}%>
-
-								<%formas_pago.forEach(fp => {%>
-								<option value="<%=fp.id%>"><%=fp.descripcion%></option>
-								<%});%>
-							</select>
-						</div>
-
-
-
+							<%farmacias.forEach(f => {%>
+							<option value="<%=f.id%>"><%=f.nombre%></option>
+							<%});%>
+						</select>
 					</div>
 
+					<div class="form-group">
+						<label>Laboratorio</label>
+						<select name="id_laboratorio" class="form-control">
 
-					<%if(!locals.show){%>
-					<div class="modal-footer">
-						<%if(locals.edit){%>
-						<a href="/pedido" class="btn btn-danger"><b>X</b></a>
-						<%} else {%>
-						<button type="button" class="btn btn-danger" data-dismiss="modal"><b>X</b></button>
-						<%}%>
-						<button type="reset" class="btn btn-warning"><i class="fa fa-home"></i></button>
-						<button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+							<%if(locals.edit || locals.show){%> 
+							<option value="<%=locals.p.laboratorio.id%>" ><%=locals.p.laboratorio.nombre%></option>
+							<%} else {%>
+							<option value="">Elija un laboratorio...</option>
+							<%}%>
+
+							<%laboratorios.forEach(l => {%>
+							<option value="<%=l.id%>"><%=l.nombre%></option>
+							<%});%>
+						</select>
 					</div>
+
+					<div class="form-group">
+						<label>Forma Pago</label>
+						<select name="forma_pago" class="form-control">
+
+							<%if(locals.edit || locals.show){%> 
+							<option value="<%=locals.p.formas_pago.id%>" ><%=locals.p.formas_pago.nombre%></option>
+							<%} else {%>
+							<option value="">Elija una forma de pago...</option>
+							<%}%>
+
+							<%formas_pago.forEach(fp => {%>
+							<option value="<%=fp.id%>"><%=fp.descripcion%></option>
+							<%});%>
+						</select>
+					</div>
+
+					<!-- <div class="form-group"> <select name="medicamentos[]" class="form-control"> <option value="">Elija un medicamento...</option> <%medicamentos.forEach(m => {%> <option value="<%=m.id%>"><%=m.monodroga%></option> <%});%> </select> </div> -->
+
+					<label>Medicamentos</label>
+					<a href="javascript:void(0);" class="btn btn-primary add_button" title="Add field"><i class="fa fa-plus"></i></a>
+
+					<div class="field_wrapper"> </div>
+
+
+
+				</div>
+
+
+				<%if(!locals.show){%>
+				<div class="modal-footer">
+					<%if(locals.edit){%>
+					<a href="/pedido" class="btn btn-danger"><b>X</b></a>
 					<%} else {%>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" data-dismiss="modal"><b>X</b></button>
-					</div>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><b>X</b></button>
 					<%}%>
+					<button type="reset" class="btn btn-warning"><i class="fa fa-home"></i></button>
+					<button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+				</div>
+				<%} else {%>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><b>X</b></button>
+				</div>
+				<%}%>
 
 				</form>
 			</div>
