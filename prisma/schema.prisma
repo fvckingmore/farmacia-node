@@ -140,6 +140,7 @@ model PedidoMedicamento {
 	id Int @id @default(autoincrement())
 	id_pedido Int
 	id_medicamento Int
+	cantidad Int
 
 	medicamento Medicamento @relation(fields: [id_medicamento], references: [id])
 	pedido Pedido @relation(fields: [id_pedido], references: [id])

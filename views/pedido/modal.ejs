@@ -22,7 +22,7 @@
 							<option value="">Elija un farmacia...</option>
 							<%}%>
 
-							<%farmacias.forEach(f => {%>
+							<%locals.farmacias.forEach(f => {%>
 							<option value="<%=f.id%>"><%=f.nombre%></option>
 							<%});%>
 						</select>
@@ -38,7 +38,7 @@
 							<option value="">Elija un laboratorio...</option>
 							<%}%>
 
-							<%laboratorios.forEach(l => {%>
+							<%locals.laboratorios.forEach(l => {%>
 							<option value="<%=l.id%>"><%=l.nombre%></option>
 							<%});%>
 						</select>
@@ -54,18 +54,35 @@
 							<option value="">Elija una forma de pago...</option>
 							<%}%>
 
-							<%formas_pago.forEach(fp => {%>
+							<%locals.formas_pago.forEach(fp => {%>
 							<option value="<%=fp.id%>"><%=fp.descripcion%></option>
 							<%});%>
 						</select>
 					</div>
 
-					<!-- <div class="form-group"> <select name="medicamentos[]" class="form-control"> <option value="">Elija un medicamento...</option> <%medicamentos.forEach(m => {%> <option value="<%=m.id%>"><%=m.monodroga%></option> <%});%> </select> </div> -->
-
 					<label>Medicamentos</label>
 					<a href="javascript:void(0);" class="btn btn-primary add_button" title="Add field"><i class="fa fa-plus"></i></a>
 
-					<div class="field_wrapper"> </div>
+					<div class="field_wrapper"> 
+
+						<%if(locals.edit){%>
+
+							<%locals.p.medicamentos.forEach(me => {%>
+
+								<div class="form-group">
+									<select name="medicamentos" class="form-control">
+										<option value="<%=me.medicamento.id%>"><%=me.medicamento.monodroga%></option>
+										<%medicamentos.forEach(m => {%>
+										<option value="<%=m.id%>"><%=m.monodroga%></option>
+										<%});%>
+									</select>
+								</div>
+
+							<%});%>
+
+						<%}%>
+
+					</div>
 
 
 

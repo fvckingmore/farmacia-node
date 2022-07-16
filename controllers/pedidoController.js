@@ -17,7 +17,7 @@ module.exports = {
 		const formas_pago = await db.FormaPago.findMany();
 		const medicamentos = await db.Medicamento.findMany();
 
-		res.render('pedido/index', {
+		return res.render('pedido/index', {
 			pedidos: pedidos,
 			farmacias: farmacias,
 			laboratorios: laboratorios,
@@ -60,58 +60,86 @@ module.exports = {
 
 		return res.redirect('/pedido?&creado=1');
 	},
-	edit: async (req, res) => {
-		const pedidos = await db.Pedido.findMany({
-			include: {
-				cargo: true,
-			}
-		});
-		const e = await db.Pedido.findUnique({
-			where: {
-				id: parseInt(req.params.id),
-			},
-			include: {
-				cargo: true,
-				farmacia: true,
-			}
-		});
-		const farmacias = await db.Farmacia.findMany();
-		const cargos = await db.Cargo.findMany();
-		return res.render('empleado/index', {
-			pedidos: pedidos,
-			farmacias: farmacias,
-			cargos: cargos,
-			titulo: "Pedidos",
-			creado: req.query.creado,
-			editado: req.query.editado,
-			eliminado: req.query.eliminado,
-			e: e,
-			edit: true
-		});	
-	},
-	update: async (req,res) => {
+	// edit: async (req, res) => {
+	// 	const p = await db.Pedido.findUnique({
+	// 		where: {
+	// 			id: parseInt(req.params.id),
+	// 		},
+	// 		include: {
+	// 			medicamentos: {
+	// 				include: {
+	// 					medicamento: true,
+	// 				}
+	// 			},
+	// 			farmacia: true,
+	// 			laboratorio: true,
+	// 			formas_pago: true,
+	// 		}
+	// 	});
 
-		try {
-			await db.Pedido.update({
-				where: {
-					id: parseInt(req.params.id),
-				},
-				data: {
-					ci: req.body.cedula,
-					nombre: req.body.nombre,
-					apellido: req.body.apellido,
-					edad: parseInt(req.body.edad),
-					telefono: req.body.telefono,
-					id_cargo: parseInt(req.body.id_cargo),
-					id_farmacia: parseInt(req.body.id_farmacia),
-				}
-			});
-		} catch (e) {
-			console.log(e);
-			return res.redirect('/empleado?&editado=0');
-		}
-		return res.redirect('/empleado?&editado=1');
-	},
+	// 	console.log(p);
+
+
+	// 	const pedidos = await db.Pedido.findMany({
+	// 		include: {
+	// 			farmacia: true,
+	// 			laboratorio: true,
+	// 			formas_pago: true,
+	// 		}
+	// 	});
+
+	// 	const farmacias = await db.Farmacia.findMany();
+	// 	const laboratorios = await db.Laboratorio.findMany();
+	// 	const formas_pago = await db.FormaPago.findMany();
+	// 	const medicamentos = await db.Medicamento.findMany();
+
+	// 	return res.render('pedido/index', {
+	// 		pedidos: pedidos,
+	// 		farmacias: farmacias,
+	// 		laboratorios: laboratorios,
+	// 		formas_pago: formas_pago,
+	// 		medicamentos: medicamentos,
+	// 		titulo: "Pedidos",
+	// 		creado: req.query.creado,
+	// 		editado: req.query.editado,
+	// 		eliminado: req.query.eliminado,
+	// 		edit: true,
+	// 		p: p,
+	// 	});	
+
+	// },
+	// update: async (req,res) => {
+
+	// 	try {
+	// 		await db.Pedido.update({
+	// 			where: {
+	// 				id: parseInt(req.params.id),
+	// 			},
+	// 			data: {
+	// 				id_farmacia: parseInt(req.body.id_farmacia),
+	// 				id_laboratorio: parseInt(req.body.id_laboratorio),
+	// 				forma_pago: parseInt(req.body.forma_pago),
+	// 			}
+	// 		});
+
+	// 		console.log(pedido);
+
+	// 		for(let i=0; i<req.body.medicamentos.length; i++){
+
+	// 			await db.PedidoMedicamento.create({
+	// 				data: {
+	// 					id_pedido: parseInt(pedido.id),
+	// 					id_medicamento: parseInt(req.body.medicamentos[i]),
+	// 				}
+	// 			});
+	// 		}
+
+	// 	} catch (e) {
+	// 		console.log(e);
+	// 		return res.redirect('/empleado?&editado=0');
+	// 	}
+	// 	return res.redirect('/empleado?&editado=1');
+	// },
 	delete: async (req,res) => {
 		try {
 			await db.Pedido.delete({
@@ -128,29 +156,43 @@ module.exports = {
 	show: async (req, res) => {
 		const pedidos = await db.Pedido.findMany({
 			include: {
-				cargo: true,
+				farmacia: true,
+				laboratorio: true,
+				formas_pago: true,
 			}
 		});
-		const e = await db.Pedido.findUnique({
+
+		const p = await db.Pedido.findUnique({
 			where: {
 				id: parseInt(req.params.id),
 			},
 			include: {
-				cargo: true,
+				medicamentos: {
+					include: {
+						medicamento: true,
+					}
+				},
 				farmacia: true,
+				laboratorio: true,
+				formas_pago: true,
 			}
 		});
+
+		console.log(p);
+
 		const farmacias = await db.Farmacia.findMany();
-		const cargos = await db.Cargo.findMany();
-		return res.render('empleado/index', {
+		const laboratorios = await db.Laboratorio.findMany();
+		const formas_pago = await db.FormaPago.findMany();
+		const medicamentos = await db.Medicamento.findMany();
+
+		return res.render('pedido/index', {
 			pedidos: pedidos,
-			farmacias: farmacias,
-			cargos: cargos,
 			titulo: "Pedidos",
-			creado: req.query.creado,
-			editado: req.query.editado,
-			eliminado: req.query.eliminado,
-			e: e,
+			p: p,
+			farmacias: farmacias,
+			laboratorios: laboratorios,
+			formas_pago: formas_pago,
+			medicamentos: medicamentos,
 			show: true,
 		});	
 	},

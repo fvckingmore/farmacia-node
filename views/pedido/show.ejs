@@ -1,0 +1,45 @@
+<div class="modal fade" id="exampleModalCenterShow" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h2 class="modal-title" id="exampleModalLongTitle"><%=titulo%></h2>
+			</div>
+
+				<div class="modal-body">
+
+					<div class="form-group">
+						<label>Farmacia</label>
+						<input id="farmacia" class="form-control" name="farmacia" value="<%=locals.p.farmacia.nombre%>" readonly>
+					</div>
+
+					<div class="form-group">
+						<label>Laboratorio</label>
+						<input id="laboratorio" class="form-control" name="laboratorio" value="<%=locals.p.laboratorio.nombre%>" readonly>
+					</div>
+
+					<div class="form-group">
+						<label>Forma Pago</label>
+						<input id="forma_pago" class="form-control" name="forma_pago" value="<%=locals.p.formas_pago.descripcion%>" readonly>
+					</div>
+
+					<div class="form-group">
+						<label>Medicamentos</label>
+						<%p.medicamentos.forEach(me => {%>
+						<input id="medicamento" class="form-control" name="medicamento" value="<%=me.medicamento.monodroga%>" readonly>
+						<%});%>
+					</div>
+
+				</div>
+
+
+				<div class="modal-footer">
+					<%if(locals.show){%>
+					<a href="/pedido" class="btn btn-danger"><b>X</b></a>
+					<%} else {%>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><b>X</b></button>
+					<%}%>
+				</div>
+
+			</div>
+		</div>
+	</div>

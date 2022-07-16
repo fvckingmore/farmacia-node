@@ -11,7 +11,6 @@ const { faker } = require('@faker-js/faker');
 			data: {
 				id_farmacia: Math.floor(Math.random() * (Math.floor(10) - Math.floor(1)) + Math.floor(1)),
 				id_laboratorio: Math.floor(Math.random() * (Math.floor(5) - Math.floor(1)) + Math.floor(1)),
-				id_empleado: Math.floor(Math.random() * (Math.floor(20) - Math.floor(1)) + Math.floor(1)),
 				forma_pago: Math.floor(Math.random() * (Math.floor(10) - Math.floor(1)) + Math.floor(1)),
 				slug: faker.random.alpha(),
 			}

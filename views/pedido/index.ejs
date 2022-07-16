@@ -53,7 +53,7 @@
 										<td><%=p.laboratorio.nombre%></td>
 										<td><%=p.formas_pago.descripcion%></td>
 										<td >
-											<a href="/pedido/edit/<%=p.id%>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+											<!-- <a href="/pedido/edit/<%=p.id%>" class="btn btn-warning"><i class="fa fa-edit"></i></a> -->
 											<a href="/pedido/show/<%=p.id%>" class="btn btn-success"><i class="fa fa-user"></i></a>
 											<button type="submit" form="theForm" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 											<form id="theForm" action="/pedido/delete/<%=p.id%>" method="POST"></form>
@@ -77,6 +77,9 @@
 <!-- /#page-wrapper -->
 
 <%- include('./modal'); %>
+<%if(locals.show){%>
+<%- include('./show'); %>
+<%}%>
 <%- include('../layouts/scripts'); %>
 <%- include('../layouts/datatable'); %>
 <%- include('../pedido/validation'); %>
@@ -86,8 +89,7 @@ $(document).ready(function(){
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.field_wrapper'); //Input field wrapper
-    // var fieldHTML = '<div class="form-group"><input class="form-control" type="text" name="medicamentos[]"><a href="javascript:void(0);" class="btn btn-danger remove_button">X</a></div>'; //New input field html 
-    var fieldHTML = '<div class="form-group"> <select name="medicamentos" class="form-control"> <option value="">Elija un medicamento...</option> <%medicamentos.forEach(m => {%> <option value="<%=m.id%>"><%=m.monodroga%></option> <%});%> </select> </div>'; //New input field html 
+    var fieldHTML = '<div class="form-group"> <select name="medicamentos" class="form-control"> <option value="">Elija un medicamento...</option> <%locals.medicamentos.forEach(m => {%> <option value="<%=m.id%>"><%=m.monodroga%></option> <%});%> </select> </div>'; //New input field html 
     var x = 1; //Initial field counter is 1
     
     //Once add button is clicked
@@ -103,9 +105,16 @@ $(document).ready(function(){
 });
 </script>
 
-<%if(locals.edit || locals.show){%>
+<%if(locals.edit){%>
 	<script type="text/javascript">
 		$("#exampleModalCenter").modal('show');
+	</script>
+<%}%>
+
+
+<%if(locals.show){%>
+	<script type="text/javascript">
+		$("#exampleModalCenterShow").modal('show');
 	</script>
 <%}%>
 
